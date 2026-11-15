@@ -1,0 +1,306 @@
+@import "tailwindcss";
+@import "@fontsource/anton/400.css";
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource/instrument-serif/400-italic.css";
+
+/* ------------------------------------------------------------------
+   STEEL HEART DESIGN SYSTEM
+   Brand palette is fixed; theme tokens below map it to two distinct
+   art directions (Dark = performance facility, Light = editorial).
+------------------------------------------------------------------- */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --sh-black: #08090b;
+  --sh-charcoal: #141619;
+  --sh-grey: #33373b;
+  --sh-silver: #aeb4ba;
+  --sh-platinum: #e4e6e8;
+  --sh-white: #ffffff;
+  --sh-red: #e51f2b;
+  --sh-red-deep: #a90f1b;
+}
+
+/* DARK: primary experience */
+:root,
+[data-theme="dark"] {
+  --bg: #08090b;
+  --bg-alt: #0e1013;
+  --surface: #141619;
+  --surface-2: #1b1e22;
+  --line: rgba(174, 180, 186, 0.16);
+  --line-strong: rgba(174, 180, 186, 0.34);
+  --fg: #f4f5f6;
+  --fg-muted: #aeb4ba;
+  --fg-faint: #6b7279;
+  --accent: #e51f2b;
+  --accent-ink: #ffffff;
+  --headline-accent: #e51f2b;
+  --photo-overlay: rgba(8, 9, 11, 0.55);
+  --glow: rgba(229, 31, 43, 0.18);
+  --noise-opacity: 0.07;
+  color-scheme: dark;
+}
+
+/* LIGHT: editorial experience (own art direction, not an inversion) */
+[data-theme="light"] {
+  --bg: #f4f2ee;
+  --bg-alt: #eceae5;
+  --surface: #ffffff;
+  --surface-2: #e4e6e8;
+  --line: rgba(20, 22, 25, 0.12);
+  --line-strong: rgba(20, 22, 25, 0.3);
+  --fg: #141619;
+  --fg-muted: #4a4f55;
+  --fg-faint: #858b91;
+  --accent: #c9141f;
+  --accent-ink: #ffffff;
+  --headline-accent: #c9141f;
+  --photo-overlay: rgba(244, 242, 238, 0.12);
+  --glow: rgba(201, 20, 31, 0.1);
+  --noise-opacity: 0.05;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-faint: var(--fg-faint);
+  --color-accent: var(--accent);
+  --color-steel: #aeb4ba;
+  --color-red: #e51f2b;
+  --color-red-deep: #a90f1b;
+  --font-display: "Anton", "Impact", sans-serif;
+  --font-head: "Manrope Variable", "Manrope", sans-serif;
+  --font-body: "DM Sans Variable", "DM Sans", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+::selection {
+  background: var(--sh-red);
+  color: #fff;
+}
+
+/* Brushed-steel grain: restrained texture across the whole site */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Type utilities */
+.f-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.92;
+  font-weight: 400;
+}
+.f-head {
+  font-family: var(--font-head);
+}
+.f-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+.eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.text-red-accent {
+  color: var(--headline-accent);
+}
+
+/* Layout */
+.wrap {
+  width: 100%;
+  max-width: 1760px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 4.5rem);
+}
+
+/* Headline line mask for clipped reveals */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.04em;
+  margin-block: -0.04em;
+}
+.line-mask > .line-inner {
+  display: block;
+  will-change: transform;
+}
+
+@layer components {
+/* Buttons: sharp, industrial, no rounded SaaS pills */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.05rem 1.6rem;
+  font-family: var(--font-head);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  color: var(--fg);
+  overflow: hidden;
+  isolation: isolate;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  transition: color 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+}
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sh-red);
+  transform: translateX(-101%);
+  transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translateX(0);
+}
+.btn:hover,
+.btn:focus-visible {
+  color: #fff;
+  border-color: var(--sh-red);
+}
+.btn-solid {
+  background: var(--sh-red);
+  border-color: var(--sh-red);
+  color: #fff;
+}
+.btn-solid::before {
+  background: var(--sh-white);
+}
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  color: var(--sh-black);
+  border-color: var(--sh-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sh-red);
+  outline-offset: 3px;
+}
+
+/* Photo placeholder: industrial atmosphere, easily replaced by real images */
+.ph {
+  position: absolute;
+  inset: 0;
+  background-color: var(--sh-charcoal);
+  overflow: hidden;
+}
+.ph::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.55));
+}
+.ph[data-tone="red"] {
+  background:
+    radial-gradient(60% 70% at 72% 30%, rgba(229, 31, 43, 0.5), transparent 70%),
+    radial-gradient(50% 60% at 20% 90%, rgba(169, 15, 27, 0.3), transparent 70%),
+    linear-gradient(160deg, #1b1e22, #08090b);
+}
+.ph[data-tone="steel"] {
+  background:
+    radial-gradient(55% 60% at 30% 25%, rgba(174, 180, 186, 0.32), transparent 70%),
+    radial-gradient(40% 50% at 85% 80%, rgba(229, 31, 43, 0.14), transparent 70%),
+    linear-gradient(200deg, #24282c, #0b0c0e);
+}
+.ph[data-tone="dark"] {
+  background:
+    radial-gradient(50% 55% at 50% 100%, rgba(229, 31, 43, 0.2), transparent 70%),
+    linear-gradient(180deg, #181a1e, #08090b);
+}
+[data-theme="light"] .ph[data-tone="red"] {
+  background:
+    radial-gradient(60% 70% at 72% 30%, rgba(229, 31, 43, 0.35), transparent 70%),
+    linear-gradient(160deg, #d8d9db, #9da2a8);
+}
+[data-theme="light"] .ph[data-tone="steel"] {
+  background:
+    radial-gradient(55% 60% at 30% 25%, rgba(255, 255, 255, 0.8), transparent 70%),
+    linear-gradient(200deg, #c8ccd0, #8b9197);
+}
+[data-theme="light"] .ph[data-tone="dark"] {
+  background:
+    radial-gradient(50% 55% at 50% 100%, rgba(229, 31, 43, 0.22), transparent 70%),
+    linear-gradient(180deg, #b6babf, #7b8187);
+}
+[data-theme="light"] .ph::after {
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, transparent 55%, rgba(20, 22, 25, 0.28));
+}
+
+/* Theme transition veil */
+.theme-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  background: var(--sh-red);
+  clip-path: circle(0% at var(--vx, 50%) var(--vy, 50%));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide scrollbar on horizontal rail */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+}
