@@ -90,11 +90,11 @@ export function Hero({ introDone }: { introDone: boolean }) {
 
       {/* 3D HEART: right side, behind headline overlap */}
       <HeroScene
-        className="hero-3d pointer-events-none absolute right-[-12%] top-[9%] h-[34svh] w-full sm:right-[2%] sm:h-[40svh] sm:w-[72%] lg:right-[3%] lg:top-[7%] lg:h-[50svh] lg:w-[46%]"
+        className="hero-3d pointer-events-none absolute right-[-12%] top-[9%] hidden h-[34svh] w-full sm:right-[2%] sm:top-[9%] sm:block sm:h-[40svh] sm:w-[72%] lg:right-[3%] lg:top-[7%] lg:h-[50svh] lg:w-[46%]"
       />
 
       {/* CONTENT: asymmetric editorial composition */}
-      <div className="hero-content wrap relative z-10 flex min-h-[100svh] flex-col justify-end pb-24 pt-32 sm:pb-20 lg:pb-16">
+      <div className="hero-content wrap relative z-10 flex min-h-[100svh] flex-col justify-start pb-14 pt-[18svh] sm:justify-end sm:pb-20 sm:pt-32 lg:pb-16">
         <p className="eyebrow mb-6 flex items-center gap-4 sm:mb-8">
           <span className="h-px w-10 bg-[var(--sh-red)]" />
           Steel Heart Fitness Studio

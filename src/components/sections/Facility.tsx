@@ -33,7 +33,7 @@ export function Facility() {
         </div>
 
         <div className="relative mx-auto max-w-[900px] [perspective:1400px]">
-          <div className="relative h-[clamp(260px,34vw,400px)] overflow-hidden [transform-style:preserve-3d]">
+          <div className="relative h-[340px] overflow-hidden [transform-style:preserve-3d] sm:h-[clamp(260px,34vw,400px)]">
             {[-1, 0, 1].map((offset) => {
               const index = (active + offset + images.length) % images.length;
               const center = offset === 0;
@@ -44,7 +44,7 @@ export function Facility() {
                   onClick={() => center ? undefined : move(offset)}
                   aria-label={center ? `${images[index].label}, current image` : `Show ${images[index].label}`}
                   aria-current={center ? "true" : undefined}
-                  className={`group absolute top-[6%] left-1/2 h-[88%] overflow-hidden border border-[var(--line-strong)] bg-[var(--surface)] text-left shadow-2xl transition-all duration-[1300ms] ease-[cubic-bezier(.22,1,.36,1)] ${center ? "z-20 w-[56%] -translate-x-1/2 sm:w-[48%] lg:w-[38%]" : offset < 0 ? "z-10 w-[42%] -translate-x-[150%] cursor-pointer lg:w-[30%] lg:-translate-x-[155%]" : "z-10 w-[42%] translate-x-[50%] cursor-pointer lg:w-[30%] lg:translate-x-[55%]"}`}
+                  className={`group absolute top-[6%] left-1/2 h-[88%] overflow-hidden border border-[var(--line-strong)] bg-[var(--surface)] text-left shadow-2xl transition-all duration-[1300ms] ease-[cubic-bezier(.22,1,.36,1)] ${center ? "z-20 w-[70%] -translate-x-1/2 sm:w-[48%] lg:w-[38%]" : offset < 0 ? "z-10 w-[42%] -translate-x-[150%] cursor-pointer lg:w-[30%] lg:-translate-x-[155%]" : "z-10 w-[42%] translate-x-[50%] cursor-pointer lg:w-[30%] lg:translate-x-[55%]"}`}
                   style={{
                     transform: center
                       ? "translateZ(80px) rotateY(0deg)"
@@ -65,11 +65,8 @@ export function Facility() {
               );
             })}
           </div>
-          <div className="relative z-30 mt-5 flex items-center justify-between border-t border-[var(--line)] pt-4">
-            <div className="flex items-center gap-2" aria-label="Gallery position">
-              {images.map((image, i) => <button key={image.label} onClick={() => setActive(i)} aria-label={`Show image ${i + 1}`} aria-current={active === i} className={`h-[3px] transition-all ${active === i ? "w-10 bg-[var(--sh-red)]" : "w-5 bg-[var(--line-strong)]"}`} />)}
-            </div>
-            <div className="flex items-center gap-3">
+          <div className="relative z-30 mt-5 flex items-center justify-center border-t border-[var(--line)] pt-4">
+            <div className="flex items-center justify-center gap-3">
               <button type="button" onClick={() => move(-1)} aria-label="Previous facility image" className="grid h-11 w-11 place-items-center border border-[var(--line-strong)] transition-colors hover:border-[var(--sh-red)] hover:text-[var(--sh-red)]"><ArrowLeft size={17} /></button>
               <button type="button" onClick={() => move(1)} aria-label="Next facility image" className="grid h-11 w-11 place-items-center border border-[var(--line-strong)] transition-colors hover:border-[var(--sh-red)] hover:text-[var(--sh-red)]"><ArrowRight size={17} /></button>
               <Link href="/facility" className="btn ml-1 !px-4 !py-3">View all <ArrowRight size={14} /></Link>
