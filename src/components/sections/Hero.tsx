@@ -121,7 +121,7 @@ export function Hero({ introDone }: { introDone: boolean }) {
           <p className="f-head max-w-md text-[0.98rem] font-medium leading-relaxed text-[var(--fg-muted)] lg:col-span-4 lg:col-start-2">
             {hero.statement}
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:col-start-7 lg:justify-end">
+          <div className="mt-3 flex flex-col gap-3 sm:mt-0 sm:translate-y-3 sm:flex-row lg:col-span-5 lg:col-start-7 lg:justify-end">
             <a href={hero.primary.href} onClick={(e) => go(e, "about")} className="btn justify-between sm:justify-start">
               {hero.primary.label} <ArrowDown size={14} strokeWidth={2.5} />
             </a>
